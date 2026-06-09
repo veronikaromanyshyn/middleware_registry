@@ -184,13 +184,13 @@ middleware_registry/
 ## Скріншоти
 
 ### Головна сторінка (список записів)
-![Головна сторінка](docs/screenshots/Реєстр middleware.png)
+![Головна сторінка](static/uploads/Реєстр middleware.png)
 
 ### Сторінка додавання запису
-![Додавання запису](docs/screenshots/Додати новий запис.png)
+![Додавання запису](static/uploads/Додати новий запис.png)
 
 ### Детальний перегляд запису
-![Деталі запису](docs/screenshots/Детальна інформація про middleware.png)
+![Деталі запису](static/uploads/Детальна інформація про middleware.png)
 ---
 
 
