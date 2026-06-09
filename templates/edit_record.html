@@ -1,0 +1,185 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="card shadow-sm">
+    <div class="card-body">
+
+        <h1 class="h3 mb-4">Редагувати запис</h1>
+
+        <form method="POST" enctype="multipart/form-data">
+
+            <div class="mb-3">
+                <label class="form-label">Назва системи</label>
+                <input type="text"
+                       name="system_name"
+                       value="{{ record['system_name'] }}"
+                       class="form-control"
+                       required>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Версія</label>
+                <input type="text"
+                       name="version"
+                       value="{{ record['version'] }}"
+                       class="form-control">
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Цільовий пристрій або ПК</label>
+                <input type="text"
+                       name="target_device"
+                       value="{{ record['target_device'] }}"
+                       class="form-control">
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Спосіб інсталяції</label>
+                <textarea name="installation_method"
+                          class="form-control"
+                          rows="3">{{ record['installation_method'] }}</textarea>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Демонстраційний приклад</label>
+                <textarea name="demo_example"
+                          class="form-control"
+                          rows="3">{{ record['demo_example'] }}</textarea>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Залежності</label>
+                <textarea name="dependencies"
+                          class="form-control"
+                          rows="3">{{ record['dependencies'] }}</textarea>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Результат запуску</label>
+                <textarea name="launch_result"
+                          class="form-control"
+                          rows="3">{{ record['launch_result'] }}</textarea>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Виявлені проблеми</label>
+                <textarea name="problems"
+                          class="form-control"
+                          rows="3">{{ record['problems'] }}</textarea>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Рейтинг придатності для навчання</label>
+                <select name="educational_value" class="form-select">
+                    <option value="1" {% if record['educational_value'] == 1 %}selected{% endif %}>
+                        ⭐ — майже не підходить
+                    </option>
+                    <option value="2" {% if record['educational_value'] == 2 %}selected{% endif %}>
+                        ⭐⭐ — складно для навчання
+                    </option>
+                    <option value="3" {% if record['educational_value'] == 3 %}selected{% endif %}>
+                        ⭐⭐⭐ — середньо
+                    </option>
+                    <option value="4" {% if record['educational_value'] == 4 %}selected{% endif %}>
+                        ⭐⭐⭐⭐ — добре підходить
+                    </option>
+                    <option value="5" {% if record['educational_value'] == 5 %}selected{% endif %}>
+                        ⭐⭐⭐⭐⭐ — відмінно підходить
+                    </option>
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Статус запуску</label>
+                <select name="status" class="form-select">
+                    <option value="Успішно" {% if record['status'] == 'Успішно' %}selected{% endif %}>
+                        Успішно
+                    </option>
+                    <option value="Частково" {% if record['status'] == 'Частково' %}selected{% endif %}>
+                        Частково
+                    </option>
+                    <option value="Помилка" {% if record['status'] == 'Помилка' %}selected{% endif %}>
+                        Помилка
+                    </option>
+                </select>
+            </div>
+
+            <hr>
+
+            <h2 class="h5 mb-3">Зображення для запису</h2>
+
+            <div class="mb-3">
+                <label class="form-label">Логотип системи</label>
+
+                {% if record["logo_image"] %}
+                    <div class="mb-2">
+                        <img src="{{ url_for('static', filename='uploads/' + record['logo_image']) }}"
+                             alt="Логотип"
+                             class="img-thumbnail"
+                             style="max-width: 200px;">
+                    </div>
+                {% endif %}
+
+                <input type="file" name="logo_image" class="form-control" accept="image/*">
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Скріншот встановлення</label>
+
+                {% if record["installation_image"] %}
+                    <div class="mb-2">
+                        <img src="{{ url_for('static', filename='uploads/' + record['installation_image']) }}"
+                             alt="Скріншот встановлення"
+                             class="img-thumbnail"
+                             style="max-width: 300px;">
+                    </div>
+                {% endif %}
+
+                <input type="file" name="installation_image" class="form-control" accept="image/*">
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Скріншот запуску</label>
+
+                {% if record["launch_image"] %}
+                    <div class="mb-2">
+                        <img src="{{ url_for('static', filename='uploads/' + record['launch_image']) }}"
+                             alt="Скріншот запуску"
+                             class="img-thumbnail"
+                             style="max-width: 300px;">
+                    </div>
+                {% endif %}
+
+                <input type="file" name="launch_image" class="form-control" accept="image/*">
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Скріншот демонстраційного прикладу</label>
+
+                {% if record["demo_image"] %}
+                    <div class="mb-2">
+                        <img src="{{ url_for('static', filename='uploads/' + record['demo_image']) }}"
+                             alt="Скріншот демонстрації"
+                             class="img-thumbnail"
+                             style="max-width: 300px;">
+                    </div>
+                {% endif %}
+
+                <input type="file" name="demo_image" class="form-control" accept="image/*">
+            </div>
+
+            <button type="submit" class="btn btn-primary">
+                Зберегти зміни
+            </button>
+
+            <a href="/" class="btn btn-secondary">
+                Назад
+            </a>
+
+        </form>
+
+    </div>
+</div>
+
+{% endblock %}

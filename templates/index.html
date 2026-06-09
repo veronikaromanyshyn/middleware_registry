@@ -1,0 +1,148 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="card shadow-sm mb-4">
+    <div class="card-body">
+        <h1 class="h3">Реєстр порівняльного розгортання робототехнічних middleware</h1>
+
+        <p class="text-muted">
+            Система для збереження та порівняння записів про встановлення,
+            запуск і тестування ROS2, micro-ROS, YARP та інших middleware.
+        </p>
+
+        <a href="/add" class="btn btn-primary">
+            Додати новий запис
+        </a>
+    </div>
+</div>
+
+<div class="card shadow-sm mb-4">
+    <div class="card-body">
+        <h2 class="h5">Фільтрація записів</h2>
+
+        <form method="GET" action="/" class="row g-3">
+
+            <div class="col-md-4">
+                <label class="form-label">Назва системи</label>
+                <input type="text"
+                       name="system_name"
+                       value="{{ system_name }}"
+                       class="form-control">
+            </div>
+
+            <div class="col-md-4">
+                <label class="form-label">Цільовий пристрій / ПК</label>
+                <input type="text"
+                       name="target_device"
+                       value="{{ target_device }}"
+                       class="form-control">
+            </div>
+
+            <div class="col-md-4">
+                <label class="form-label">Статус</label>
+                <select name="status" class="form-select">
+                    <option value="">Усі статуси</option>
+                    <option value="Успішно" {% if status == 'Успішно' %}selected{% endif %}>Успішно</option>
+                    <option value="Частково" {% if status == 'Частково' %}selected{% endif %}>Частково</option>
+                    <option value="Помилка" {% if status == 'Помилка' %}selected{% endif %}>Помилка</option>
+                </select>
+            </div>
+
+            <div class="col-12">
+                <button type="submit" class="btn btn-success">
+                    Застосувати фільтр
+                </button>
+
+                <a href="/" class="btn btn-secondary">
+                    Скинути
+                </a>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+<div class="card shadow-sm">
+    <div class="card-body">
+
+        <h2 class="h5 mb-3">Список записів</h2>
+
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover align-middle">
+
+                <thead class="table-dark">
+                <tr>
+                    <th>ID</th>
+                    <th>Логотип</th>
+                    <th>Назва системи</th>
+                    <th>Версія</th>
+                    <th>Цільовий пристрій / ПК</th>
+                    <th>Статус</th>
+                    <th>Рейтинг</th>
+                    <th>Дії</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                {% for record in records %}
+                <tr>
+                    <td>{{ record["id"] }}</td>
+
+                    <td>
+                        {% if record["logo_image"] %}
+                            <img src="{{ url_for('static', filename='uploads/' + record['logo_image']) }}"
+                                 alt="Логотип"
+                                 style="width: 60px; height: 60px; object-fit: contain;">
+                        {% else %}
+                            <span class="text-muted">Немає</span>
+                        {% endif %}
+                    </td>
+
+                    <td>{{ record["system_name"] }}</td>
+                    <td>{{ record["version"] }}</td>
+                    <td>{{ record["target_device"] }}</td>
+                    <td>{{ record["status"] }}</td>
+                    <td>{{ get_stars(record["educational_value"]) }}</td>
+
+                    <td>
+                        <a href="/view/{{ record['id'] }}"
+                           class="btn btn-info btn-sm">
+                            Переглянути
+                        </a>
+
+                        <a href="/edit/{{ record['id'] }}"
+                           class="btn btn-warning btn-sm">
+                            Редагувати
+                        </a>
+
+                        <form action="/delete/{{ record['id'] }}"
+                              method="POST"
+                              class="d-inline">
+
+                            <button type="submit"
+                                    class="btn btn-danger btn-sm"
+                                    onclick="return confirm('Ви точно хочете видалити цей запис?')">
+                                Видалити
+                            </button>
+
+                        </form>
+                    </td>
+                </tr>
+
+                {% else %}
+                <tr>
+                    <td colspan="8" class="text-center">
+                        Записів поки немає.
+                    </td>
+                </tr>
+                {% endfor %}
+                </tbody>
+
+            </table>
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}

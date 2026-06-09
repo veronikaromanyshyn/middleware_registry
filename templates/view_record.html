@@ -1,0 +1,142 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="card shadow-sm mb-4">
+    <div class="card-body">
+
+        <h1 class="h3 mb-4">
+            Детальна інформація про middleware
+        </h1>
+
+        <table class="table table-bordered">
+
+            <tr>
+                <th style="width: 30%;">ID</th>
+                <td>{{ record["id"] }}</td>
+            </tr>
+
+            <tr>
+                <th>Назва системи</th>
+                <td>{{ record["system_name"] }}</td>
+            </tr>
+
+            <tr>
+                <th>Версія</th>
+                <td>{{ record["version"] }}</td>
+            </tr>
+
+            <tr>
+                <th>Цільовий пристрій / ПК</th>
+                <td>{{ record["target_device"] }}</td>
+            </tr>
+
+            <tr>
+                <th>Спосіб інсталяції</th>
+                <td>{{ record["installation_method"] }}</td>
+            </tr>
+
+            <tr>
+                <th>Демонстраційний приклад</th>
+                <td>{{ record["demo_example"] }}</td>
+            </tr>
+
+            <tr>
+                <th>Залежності</th>
+                <td>{{ record["dependencies"] }}</td>
+            </tr>
+
+            <tr>
+                <th>Результат запуску</th>
+                <td>{{ record["launch_result"] }}</td>
+            </tr>
+
+            <tr>
+                <th>Виявлені проблеми</th>
+                <td>{{ record["problems"] }}</td>
+            </tr>
+
+            <tr>
+                <th>Рейтинг придатності для навчання</th>
+                <td>{{ get_stars(record["educational_value"]) }}</td>
+            </tr>
+
+            <tr>
+                <th>Статус</th>
+                <td>{{ record["status"] }}</td>
+            </tr>
+
+        </table>
+
+        <a href="/edit/{{ record['id'] }}" class="btn btn-warning">
+            Редагувати
+        </a>
+
+        <a href="/" class="btn btn-secondary">
+            Назад
+        </a>
+
+    </div>
+</div>
+
+<div class="card shadow-sm">
+    <div class="card-body">
+
+        <h2 class="h4 mb-4">Візуальні матеріали</h2>
+
+        <div class="row g-4">
+
+            <div class="col-md-6">
+                <h3 class="h6">Логотип системи</h3>
+
+                {% if record["logo_image"] %}
+                    <img src="{{ url_for('static', filename='uploads/' + record['logo_image']) }}"
+                         alt="Логотип системи"
+                         class="img-fluid img-thumbnail">
+                {% else %}
+                    <p class="text-muted">Зображення не додано.</p>
+                {% endif %}
+            </div>
+
+            <div class="col-md-6">
+                <h3 class="h6">Скріншот встановлення</h3>
+
+                {% if record["installation_image"] %}
+                    <img src="{{ url_for('static', filename='uploads/' + record['installation_image']) }}"
+                         alt="Скріншот встановлення"
+                         class="img-fluid img-thumbnail">
+                {% else %}
+                    <p class="text-muted">Зображення не додано.</p>
+                {% endif %}
+            </div>
+
+            <div class="col-md-6">
+                <h3 class="h6">Скріншот запуску</h3>
+
+                {% if record["launch_image"] %}
+                    <img src="{{ url_for('static', filename='uploads/' + record['launch_image']) }}"
+                         alt="Скріншот запуску"
+                         class="img-fluid img-thumbnail">
+                {% else %}
+                    <p class="text-muted">Зображення не додано.</p>
+                {% endif %}
+            </div>
+
+            <div class="col-md-6">
+                <h3 class="h6">Скріншот демонстраційного прикладу</h3>
+
+                {% if record["demo_image"] %}
+                    <img src="{{ url_for('static', filename='uploads/' + record['demo_image']) }}"
+                         alt="Скріншот демонстраційного прикладу"
+                         class="img-fluid img-thumbnail">
+                {% else %}
+                    <p class="text-muted">Зображення не додано.</p>
+                {% endif %}
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}

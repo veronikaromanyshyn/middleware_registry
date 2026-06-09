@@ -1,0 +1,186 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="card shadow-sm">
+    <div class="card-body">
+
+        <h1 class="h3 mb-4">Додати новий запис</h1>
+
+        <form method="POST" enctype="multipart/form-data">
+
+            <div class="mb-3">
+                <label class="form-label">Назва системи</label>
+                <input type="text"
+                       name="system_name"
+                       class="form-control"
+                       required>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Версія</label>
+                <input type="text"
+                       name="version"
+                       class="form-control">
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Цільовий пристрій або ПК</label>
+                <input type="text"
+                       name="target_device"
+                       class="form-control">
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Спосіб інсталяції</label>
+                <textarea name="installation_method"
+                          class="form-control"
+                          rows="3"></textarea>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Демонстраційний приклад</label>
+                <textarea name="demo_example"
+                          class="form-control"
+                          rows="3"></textarea>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Залежності</label>
+                <textarea name="dependencies"
+                          class="form-control"
+                          rows="3"></textarea>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Результат запуску</label>
+                <textarea name="launch_result"
+                          class="form-control"
+                          rows="3"></textarea>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Виявлені проблеми</label>
+                <textarea name="problems"
+                          class="form-control"
+                          rows="3"></textarea>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">
+                    Рейтинг придатності для навчання
+                </label>
+
+                <select name="educational_value"
+                        class="form-select">
+
+                    <option value="1">
+                        ⭐ — майже не підходить
+                    </option>
+
+                    <option value="2">
+                        ⭐⭐ — складно для навчання
+                    </option>
+
+                    <option value="3">
+                        ⭐⭐⭐ — середньо
+                    </option>
+
+                    <option value="4">
+                        ⭐⭐⭐⭐ — добре підходить
+                    </option>
+
+                    <option value="5" selected>
+                        ⭐⭐⭐⭐⭐ — відмінно підходить
+                    </option>
+
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Статус запуску</label>
+
+                <select name="status"
+                        class="form-select">
+
+                    <option value="Успішно">
+                        Успішно
+                    </option>
+
+                    <option value="Частково">
+                        Частково
+                    </option>
+
+                    <option value="Помилка">
+                        Помилка
+                    </option>
+
+                </select>
+            </div>
+
+            <hr>
+
+            <h2 class="h5 mb-3">
+                Зображення для запису
+            </h2>
+
+            <div class="mb-3">
+                <label class="form-label">
+                    Логотип системи
+                </label>
+
+                <input type="file"
+                       name="logo_image"
+                       class="form-control"
+                       accept="image/*">
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">
+                    Скріншот встановлення
+                </label>
+
+                <input type="file"
+                       name="installation_image"
+                       class="form-control"
+                       accept="image/*">
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">
+                    Скріншот запуску
+                </label>
+
+                <input type="file"
+                       name="launch_image"
+                       class="form-control"
+                       accept="image/*">
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">
+                    Скріншот демонстраційного прикладу
+                </label>
+
+                <input type="file"
+                       name="demo_image"
+                       class="form-control"
+                       accept="image/*">
+            </div>
+
+            <button type="submit"
+                    class="btn btn-primary">
+                Зберегти запис
+            </button>
+
+            <a href="/"
+               class="btn btn-secondary">
+                Назад
+            </a>
+
+        </form>
+
+    </div>
+</div>
+
+{% endblock %}
